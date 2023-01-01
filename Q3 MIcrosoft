@@ -1,0 +1,35 @@
+// Bulls and Cows
+
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int bulls=0;
+        map<char,int> m;
+        map<char,int> m1;
+        for(int i=0;i<secret.length();i++){
+            if(secret[i]==guess[i]){
+                bulls++;
+                secret[i]='a';
+                guess[i]='a';
+            }
+            else{
+                m[secret[i]]++;
+                m1[guess[i]]++;
+            }
+        }
+        int cows=0;
+        for(auto it=m.begin();it!=m.end();it++){
+            int u = (*it).first;
+            int mini = min(m1[u],(*it).second);
+            cows+=mini;
+        }
+        string a = to_string(bulls);
+        string s;
+        s=s+a;
+        s=s+'A';
+        string b = to_string(cows);
+        s=s+b;
+        s=s+'B';
+        return s;
+    }
+};
