@@ -1,0 +1,79 @@
+// How to find a perfect Rectangle.
+
+class Solution {
+public:
+    bool isRectangleCover(vector<vector<int>>& rectangles) {
+        sort(rectangles.begin(),rectangles.end());
+        int n = rectangles.size();
+        map<pair<int,int>,int> m;
+        map<pair<int,int>,int> m1;
+        map<pair<int,int>,int> m2;
+        map<pair<int,int>,int> m3;
+        map<pair<int,int>,int> m4;
+        int area=0;
+        int u1=rectangles[0][0];
+        int v1=rectangles[0][1];
+        int w1=rectangles[0][2];
+        int x1=rectangles[0][3];
+        for(int i=0;i<n;i++){
+            int u=rectangles[i][0];
+            int v=rectangles[i][1];
+            int w=rectangles[i][2];
+            int x=rectangles[i][3];
+            if(u==u1 && w==w1 && v<v1 && x>x1){
+                return false;
+            }
+            if(u==u1 && w==w1 && v>v1 && x<x1){
+                return false;
+            }
+            if(u<u1 && w>w1 && v==v1 && x==x1){
+                return false;
+            }
+            if(u>u1 && w<w1 && v==v1 && x==x1){
+                return false;
+            }
+            m[{u,v}]++;
+            m1[{u,v}]++;
+            m[{w,x}]++;
+            m2[{w,x}]++;
+            m[{u,x}]++;
+            m3[{u,x}]++;
+            m[{w,v}]++;
+            m4[{w,v}]++;
+            u1=rectangles[i][0];
+            v1=rectangles[i][1];
+            w1=rectangles[i][2];
+            x1=rectangles[i][3];
+        }
+        int cnt=0;
+        for(auto it=m.begin();it!=m.end();it++){
+            if((*it).second==1){
+                cnt++;
+            }
+        }
+        for(auto it=m1.begin();it!=m1.end();it++){
+            if((*it).second>1){
+                return false;
+            }
+        }
+        for(auto it=m2.begin();it!=m2.end();it++){
+           if((*it).second>1){
+                return false;
+            }
+        }
+        for(auto it=m3.begin();it!=m3.end();it++){
+            if((*it).second>1){
+                return false;
+            }
+        }
+        for(auto it=m4.begin();it!=m4.end();it++){
+            if((*it).second>1){
+                return false;
+            }
+        }
+        if(cnt!=4)
+        return false;
+        else
+        return true;
+    }
+};
