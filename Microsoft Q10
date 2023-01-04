@@ -1,0 +1,19 @@
+// Shortest Unsorted continuous Subarray
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        vector<int> t=nums;
+        sort(nums.begin(),nums.end());
+        vector<int> b;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]!=t[i]){
+                b.push_back(i);
+            }
+        }
+        if(b.size()<2){
+            return b.size();
+        }
+        return b[b.size()-1]-b[0]+1;
+    }
+};
