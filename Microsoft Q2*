@@ -1,0 +1,34 @@
+// Combination Sum with a twist.
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void combinations(int i,vector<int> &nums,vector<int> &d,int tar,int k)
+    {
+        if(i>=nums.size())
+        {
+            if(d.size()==k and tar==0)
+            {
+                ans.push_back(d);
+            }
+            return;
+        }
+        if(nums[i]<=tar)
+        {
+            d.push_back(nums[i]);
+            combinations(i+1,nums,d,tar-nums[i],k);
+            d.pop_back();
+        }
+        combinations(i+1,nums,d,tar,k);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> nums;
+        vector<int> d;
+       for(int i=1;i<=9;i++)
+       {
+           nums.push_back(i);
+       }
+        combinations(0,nums,d,n,k);
+        return ans;
+    }
+};
